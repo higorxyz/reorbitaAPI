@@ -1,4 +1,4 @@
-<h1><img src="assets/brand/reorbita-logo.png" alt="Logo REORBITA" width="56" /> REORBITA</h1>
+<h1><img src="assets/brand/reorbita-logo.png" alt="Logo REORBITA" width="56" align="absmiddle" /> REORBITA</h1>
 Ecossistema de manutenção orbital para monitoramento preditivo de satélites e coordenação de intervenções robóticas.
 
 ## 1. Nome e tagline do projeto
