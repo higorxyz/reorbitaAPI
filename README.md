@@ -23,7 +23,7 @@ A proposta conecta monitoramento orbital, continuidade operacional e segurança 
 ### 5.1 Fluxo principal (telemetria)
 ```mermaid
 flowchart TD
-    A[TelemetriaController POST /api/telemetria/{sateliteId}] --> B[ServicoMonitoramento.ReceberTelemetria]
+    A[TelemetriaController POST /api/telemetria/:sateliteId] --> B[ServicoMonitoramento.ReceberTelemetria]
     B --> C[ServicoMonitoramento.ValidarLeituraTelemetria]
     C --> D[Satelite.RegistrarLeituraTelemetria]
     D --> E[MotorPreditivoReorbita.AnalisarTelemetria]
@@ -101,6 +101,26 @@ dotnet restore src/Reorbita.Api/Reorbita.Api.csproj
 dotnet run --project src/Reorbita.Api/Reorbita.Api.csproj
 ```
 
+### Exemplo de acesso para obter JWT
+Use o endpoint `/api/auth/token` para gerar um token de acesso de teste.
+
+```bash
+curl -X POST "http://localhost:5028/api/auth/token" \
+    -H "Content-Type: application/json" \
+    -d '{
+        "usuarioId": "operadora-demo",
+        "operadora": "StarLink BR",
+        "nivelAcesso": "OperadoraAdmin",
+        "mfaHabilitado": true
+    }'
+```
+
+No retorno, use o valor de `dados.accessToken` no header:
+
+```text
+Authorization: Bearer <SEU_TOKEN_JWT>
+```
+
 Swagger local:
 - https://localhost:{porta}/swagger
 
@@ -144,8 +164,17 @@ REORBITA/
 ```
 
 ## 10. Evidências de execução
+### Evidência 01 - Criar satélite
 ![Criar satélite](evidencias/01_criar_satelite.png)
+
+### Evidência 02 - Telemetria normal
 ![Telemetria normal](evidencias/02_telemetria_normal.png)
+
+### Evidência 03 - Telemetria crítica com alerta
 ![Telemetria crítica com alerta](evidencias/03_telemetria_critica_alerta.png)
+
+### Evidência 04 - Intervenção da frota
 ![Intervenção da frota](evidencias/04_intervencao_frota.png)
+
+### Evidência 05 - Histórico filtrado
 ![Histórico filtrado](evidencias/05_historico_filtrado.png)
