@@ -1,14 +1,22 @@
 # REORBITA
-Plataforma de Inteligência Orbital para monitoramento preditivo de satélites e coordenação de intervenções robóticas.
+Ecossistema de manutenção orbital para monitoramento preditivo de satélites e coordenação de intervenções robóticas.
 
 ## 1. Nome e tagline do projeto
-REORBITA - Plataforma de Inteligência Orbital para monitoramento preditivo de satélites e coordenação de intervenções robóticas.
+REORBITA - Ecossistema de manutenção orbital para prolongar a vida útil de satélites com inteligência preditiva e suporte robótico.
 
 ## 2. Problema e solução
-A proliferação de satélites em fim de vida útil aumenta risco de colisão, perda de serviço e lixo espacial. A REORBITA resolve isso com uma API que recebe telemetria, projeta falhas, gera alertas por severidade e aciona uma frota de robôs orbitais quando necessário.
+Mais de 60% dos satélites lançados na última década ainda estarão em órbita em 2035, mas muitos perderão utilidade antes disso por falhas pontuais, degradação de bateria e esgotamento de combustível. O resultado é perda de ativos de alto valor e aumento de lixo espacial.
+
+A REORBITA propõe um ecossistema integrado de manutenção orbital apoiado em três pilares:
+
+- Plataforma de Inteligência Orbital: cria uma visão operacional do satélite a partir de telemetria e histórico, com análise preditiva para antecipar falhas e priorizar ação antes da indisponibilidade.
+- Frota de robôs modulares de reparo: organiza intervenções especializadas (reabastecimento, troca de módulo, correção de trajetória e captura de detritos) de forma coordenada.
+- Protocolo Orbit-Ready: define uma direção de padronização para satélites reparáveis e atualizáveis em órbita, reduzindo descarte prematuro.
+
+No escopo desta entrega em C#, a API implementa de ponta a ponta os fluxos de monitoramento preditivo, geração de alertas e solicitação de intervenção da frota, estabelecendo a base técnica para evolução dos demais componentes do ecossistema.
 
 ## 3. Conexão com o tema Space Connect
-A proposta conecta monitoramento orbital, continuidade operacional e segurança cibernética em um mesmo fluxo, alinhando o projeto ao tema Space Connect da Global Solution.
+A proposta se conecta ao Space Connect ao integrar software, operação orbital e segurança em uma mesma arquitetura, com foco em três frentes: sustentabilidade orbital (redução de satélites inoperantes e risco de detritos), economia circular no espaço (extensão de vida útil e reaproveitamento) e novo modelo de serviço contínuo para operadoras.
 
 ## 4. Integrantes
 | Nome | RM |
@@ -165,16 +173,21 @@ REORBITA/
 
 ## 10. Evidências de execução
 ### Evidência 01 - Criar satélite
+Criação de um novo satélite via endpoint `POST /api/satelites`, com payload completo e resposta de sucesso.
 ![Criar satélite](evidencias/01_criar_satelite.png)
 
 ### Evidência 02 - Telemetria normal
+Envio de telemetria dentro dos limites esperados para satélite operacional, sem geração de alerta crítico.
 ![Telemetria normal](evidencias/02_telemetria_normal.png)
 
 ### Evidência 03 - Telemetria crítica com alerta
+Envio de telemetria de bateria crítica para demonstrar detecção de risco e retorno com alerta de severidade alta.
 ![Telemetria crítica com alerta](evidencias/03_telemetria_critica_alerta.png)
 
 ### Evidência 04 - Intervenção da frota
+Solicitação de intervenção orbital para alocação de robô e geração da ordem de serviço correspondente.
 ![Intervenção da frota](evidencias/04_intervencao_frota.png)
 
 ### Evidência 05 - Histórico filtrado
+Consulta do histórico de telemetria com filtro por intervalo de datas, retornando apenas leituras do período informado.
 ![Histórico filtrado](evidencias/05_historico_filtrado.png)
