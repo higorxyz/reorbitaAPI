@@ -5,7 +5,3 @@
 
 # IDE files
 .vs/
-
-# Local-only cybersecurity docs (do not commit)
-docs/cybersecurity.md
-docs/README-cybersecurity.md
