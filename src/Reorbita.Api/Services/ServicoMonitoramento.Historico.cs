@@ -134,7 +134,7 @@ public sealed partial class ServicoMonitoramento
             case SateliteNaoEncontradoException sateliteException:
                 _logger.LogError(sateliteException, mensagemSateliteNaoEncontradoLog, sateliteException.SateliteId);
                 return ResultadoOperacao<T>.Falha(sateliteException.Message, 404, "SATELITE_NAO_ENCONTRADO");
-            case IntegridadeDadosCompromDidaException integridadeException:
+            case IntegridadeDadosComprometidaException integridadeException:
                 _logger.LogCritical(integridadeException, mensagemIntegridadeLog, sateliteId);
                 return ResultadoOperacao<T>.Falha(integridadeException.Message, 500, "INTEGRIDADE_DADOS_COMPROMETIDA");
             default:
@@ -152,7 +152,7 @@ public sealed partial class ServicoMonitoramento
     {
         switch (exception)
         {
-            case IntegridadeDadosCompromDidaException integridadeException:
+            case IntegridadeDadosComprometidaException integridadeException:
                 _logger.LogCritical(integridadeException, mensagemIntegridadeLog, contexto);
                 return ResultadoOperacao<T>.Falha(integridadeException.Message, 500, "INTEGRIDADE_DADOS_COMPROMETIDA");
             default:

@@ -125,7 +125,7 @@ public sealed class RepositorioSateliteArquivo : IRepositorioSatelite
         if (!string.Equals(hashEsperado, hashEncontrado, StringComparison.OrdinalIgnoreCase))
         {
             _logger.LogCritical("Integridade de dados comprometida para {Arquivo}", _arquivoSatelites);
-            throw new IntegridadeDadosCompromDidaException(_arquivoSatelites, hashEsperado, hashEncontrado);
+            throw new IntegridadeDadosComprometidaException(_arquivoSatelites, hashEsperado, hashEncontrado);
         }
     }
 

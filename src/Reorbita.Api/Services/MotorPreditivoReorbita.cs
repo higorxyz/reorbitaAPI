@@ -154,7 +154,7 @@ public sealed class MotorPreditivoReorbita : IMotorPreditivo
             case FalhaDeComunicacaoOrbitalException falhaComunicacaoException:
                 _logger.LogError(falhaComunicacaoException, "Falha de comunicacao orbital durante analise preditiva. Satelite={SateliteId}", sateliteId);
                 break;
-            case IntegridadeDadosCompromDidaException integridadeException:
+            case IntegridadeDadosComprometidaException integridadeException:
                 _logger.LogCritical(integridadeException, "Integridade comprometida durante analise preditiva. Arquivo={Arquivo}", integridadeException.CaminhoArquivo);
                 break;
             default:
@@ -185,7 +185,7 @@ public sealed class MotorPreditivoReorbita : IMotorPreditivo
             case FalhaDeComunicacaoOrbitalException falhaComunicacaoException:
                 _logger.LogError(falhaComunicacaoException, "Falha de comunicacao orbital durante projecao de falha. Satelite={SateliteId}", sateliteId);
                 return CriarPrevisaoFallback(sateliteId);
-            case IntegridadeDadosCompromDidaException integridadeException:
+            case IntegridadeDadosComprometidaException integridadeException:
                 _logger.LogCritical(integridadeException, "Integridade comprometida durante projecao de falha. Arquivo={Arquivo}", integridadeException.CaminhoArquivo);
                 return CriarPrevisaoFallback(sateliteId);
             default:

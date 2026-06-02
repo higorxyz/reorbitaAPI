@@ -133,7 +133,7 @@ public sealed class ServicoAutenticacao : IServicoAutenticacao
             case FalhaDeComunicacaoOrbitalException falhaComunicacaoException:
                 _logger.LogError(falhaComunicacaoException, "Falha de comunicacao orbital inesperada durante emissao de token.");
                 return ResultadoOperacao<TokenAcesso>.Falha("Erro de comunicacao inesperado ao gerar token.", 500, "ERRO_COMUNICACAO");
-            case IntegridadeDadosCompromDidaException integridadeException:
+            case IntegridadeDadosComprometidaException integridadeException:
                 _logger.LogCritical(integridadeException, "Integridade comprometida inesperada durante emissao de token. Arquivo={Arquivo}", integridadeException.CaminhoArquivo);
                 return ResultadoOperacao<TokenAcesso>.Falha("Erro de integridade inesperado ao gerar token.", 500, "ERRO_INTEGRIDADE");
             default:

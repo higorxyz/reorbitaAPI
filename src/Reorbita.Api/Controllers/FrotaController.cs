@@ -21,7 +21,7 @@ public sealed class FrotaController : ControllerBase
     }
 
     [HttpPost("intervencao")]
-    [Authorize(Roles = "OperadoraAdmin,ReorbitaAdmin")]
+    [Authorize(Policy = "FrotaComando")]
     public IActionResult SolicitarIntervencao([FromBody] SolicitarIntervencaoRequest request)
     {
         var operadora = User.FindFirstValue("operadora") ?? string.Empty;

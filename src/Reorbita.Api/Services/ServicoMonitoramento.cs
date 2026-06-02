@@ -35,7 +35,12 @@ public sealed partial class ServicoMonitoramento : IServicoMonitoramento
 
             ValidarLeituraTelemetria(leituraTelemetria);
 
-            var leituraComTimestampUtc = leituraTelemetria with { DataHoraColeta = DateTime.UtcNow };
+            var leituraComTimestampUtc = leituraTelemetria with
+            {
+                DataHoraColeta = leituraTelemetria.DataHoraColeta.Kind == DateTimeKind.Utc
+                    ? leituraTelemetria.DataHoraColeta
+                    : DateTime.SpecifyKind(leituraTelemetria.DataHoraColeta, DateTimeKind.Utc)
+            };
             satelite.RegistrarLeituraTelemetria(leituraComTimestampUtc);
 
             var alertasGerados = ProcessarAnalisePreditiva(satelite, leituraComTimestampUtc);
@@ -82,7 +87,7 @@ public sealed partial class ServicoMonitoramento : IServicoMonitoramento
             _logger.LogError(exception, "Falha de comunicacao orbital no recebimento de telemetria. Satelite={SateliteId}", sateliteId);
             return ResultadoOperacao<RelatorioSaude>.Falha(exception.Message, 503, "FALHA_COMUNICACAO_ORBITAL");
         }
-        catch (IntegridadeDadosCompromDidaException exception)
+        catch (IntegridadeDadosComprometidaException exception)
         {
             _logger.LogCritical(exception, "Integridade comprometida no monitoramento. Arquivo={Arquivo}", exception.CaminhoArquivo);
             return ResultadoOperacao<RelatorioSaude>.Falha(exception.Message, 500, "INTEGRIDADE_DADOS_COMPROMETIDA");

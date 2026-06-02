@@ -103,7 +103,7 @@ public sealed class RepositorioFrotaArquivo : IRepositorioFrota
         if (!string.Equals(hashEsperado, hashEncontrado, StringComparison.OrdinalIgnoreCase))
         {
             _logger.LogCritical("Integridade de dados comprometida para {Arquivo}", _arquivoFrota);
-            throw new IntegridadeDadosCompromDidaException(_arquivoFrota, hashEsperado, hashEncontrado);
+            throw new IntegridadeDadosComprometidaException(_arquivoFrota, hashEsperado, hashEncontrado);
         }
     }
 

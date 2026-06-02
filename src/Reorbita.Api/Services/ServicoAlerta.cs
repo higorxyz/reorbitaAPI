@@ -111,7 +111,7 @@ public sealed class ServicoAlerta : IServicoAlerta
             case FalhaDeComunicacaoOrbitalException falhaComunicacaoException:
                 _logger.LogError(falhaComunicacaoException, "Falha de comunicacao orbital ao processar alerta. Satelite={SateliteId}", sateliteId);
                 return ResultadoOperacao<Alerta>.Falha(falhaComunicacaoException.Message, 503, "FALHA_COMUNICACAO_ORBITAL");
-            case IntegridadeDadosCompromDidaException integridadeException:
+            case IntegridadeDadosComprometidaException integridadeException:
                 _logger.LogCritical(integridadeException, "Integridade comprometida durante processamento de alerta. Arquivo={Arquivo}", integridadeException.CaminhoArquivo);
                 return ResultadoOperacao<Alerta>.Falha(integridadeException.Message, 500, "INTEGRIDADE_DADOS_COMPROMETIDA");
             default:
@@ -140,7 +140,7 @@ public sealed class ServicoAlerta : IServicoAlerta
             case FalhaDeComunicacaoOrbitalException falhaComunicacaoException:
                 _logger.LogError(falhaComunicacaoException, "Falha de comunicacao orbital ao notificar operadora. Operadora={Operadora}", operadora);
                 break;
-            case IntegridadeDadosCompromDidaException integridadeException:
+            case IntegridadeDadosComprometidaException integridadeException:
                 _logger.LogCritical(integridadeException, "Integridade comprometida ao notificar operadora. Arquivo={Arquivo}", integridadeException.CaminhoArquivo);
                 break;
             default:
@@ -169,7 +169,7 @@ public sealed class ServicoAlerta : IServicoAlerta
             case FalhaDeComunicacaoOrbitalException falhaComunicacaoException:
                 _logger.LogError(falhaComunicacaoException, "Falha de comunicacao orbital ao registrar log de alerta. Satelite={SateliteId}", sateliteId);
                 break;
-            case IntegridadeDadosCompromDidaException integridadeException:
+            case IntegridadeDadosComprometidaException integridadeException:
                 _logger.LogCritical(integridadeException, "Integridade comprometida ao registrar log de alerta. Arquivo={Arquivo}", integridadeException.CaminhoArquivo);
                 break;
             default:
@@ -200,7 +200,7 @@ public sealed class ServicoAlerta : IServicoAlerta
             _logger.LogError(exception, "Erro ao listar alertas por operadora. Operadora={Operadora}", operadora);
             return ResultadoOperacao<IReadOnlyCollection<Alerta>>.Falha(exception.Message, 404, "SATELITE_NAO_ENCONTRADO");
         }
-        catch (IntegridadeDadosCompromDidaException exception)
+        catch (IntegridadeDadosComprometidaException exception)
         {
             _logger.LogCritical(exception, "Integridade comprometida ao listar alertas por operadora. Operadora={Operadora}", operadora);
             return ResultadoOperacao<IReadOnlyCollection<Alerta>>.Falha(exception.Message, 500, "INTEGRIDADE_DADOS_COMPROMETIDA");
@@ -240,7 +240,7 @@ public sealed class ServicoAlerta : IServicoAlerta
             _logger.LogError(exception, "Erro ao listar alertas do satelite. Satelite={SateliteId}", sateliteId);
             return ResultadoOperacao<IReadOnlyCollection<Alerta>>.Falha(exception.Message, 404, "SATELITE_NAO_ENCONTRADO");
         }
-        catch (IntegridadeDadosCompromDidaException exception)
+        catch (IntegridadeDadosComprometidaException exception)
         {
             _logger.LogCritical(exception, "Integridade comprometida ao listar alertas do satelite. Satelite={SateliteId}", sateliteId);
             return ResultadoOperacao<IReadOnlyCollection<Alerta>>.Falha(exception.Message, 500, "INTEGRIDADE_DADOS_COMPROMETIDA");

@@ -102,7 +102,26 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("FrotaComando", policy =>
-        policy.RequireRole(NivelAcesso.OperadoraAdmin.ToString(), NivelAcesso.ReorbitaAdmin.ToString()));
+        policy.RequireAssertion(context =>
+        {
+            var papeis = context.User
+                .FindAll(ClaimTypes.Role)
+                .Select(claim => claim.Value)
+                .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+            if (papeis.Contains(NivelAcesso.OperadoraAdmin.ToString()))
+            {
+                return true;
+            }
+
+            if (!papeis.Contains(NivelAcesso.ReorbitaAdmin.ToString()))
+            {
+                return false;
+            }
+
+            var mfa = context.User.FindFirstValue("mfa");
+            return string.Equals(mfa, "true", StringComparison.OrdinalIgnoreCase);
+        }));
 
     options.AddPolicy("AdminComMfa", policy =>
         policy.RequireRole(NivelAcesso.ReorbitaAdmin.ToString())

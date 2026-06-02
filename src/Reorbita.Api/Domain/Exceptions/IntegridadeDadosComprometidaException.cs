@@ -1,8 +1,8 @@
 namespace Reorbita.Api.Domain.Exceptions;
 
-public sealed class IntegridadeDadosCompromDidaException : Exception
+public sealed class IntegridadeDadosComprometidaException : Exception
 {
-    public IntegridadeDadosCompromDidaException(string caminhoArquivo, string hashEsperado, string hashEncontrado)
+    public IntegridadeDadosComprometidaException(string caminhoArquivo, string hashEsperado, string hashEncontrado)
         : base($"Integridade de dados comprometida no arquivo '{caminhoArquivo}'.")
     {
         CaminhoArquivo = caminhoArquivo;

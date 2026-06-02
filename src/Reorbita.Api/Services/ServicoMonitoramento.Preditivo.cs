@@ -94,7 +94,7 @@ public sealed partial class ServicoMonitoramento
             case FalhaDeComunicacaoOrbitalException falhaComunicacaoException:
                 _logger.LogError(falhaComunicacaoException, "Falha de comunicacao orbital durante analise preditiva no monitoramento. Satelite={SateliteId}", sateliteId);
                 break;
-            case IntegridadeDadosCompromDidaException integridadeException:
+            case IntegridadeDadosComprometidaException integridadeException:
                 _logger.LogCritical(integridadeException, "Integridade comprometida durante analise preditiva no monitoramento. Arquivo={Arquivo}", integridadeException.CaminhoArquivo);
                 break;
             default:
@@ -125,7 +125,7 @@ public sealed partial class ServicoMonitoramento
             case FalhaDeComunicacaoOrbitalException falhaComunicacaoException:
                 _logger.LogError(falhaComunicacaoException, "Falha de comunicacao orbital ao atualizar status pos-analise. Satelite={SateliteId}", sateliteId);
                 break;
-            case IntegridadeDadosCompromDidaException integridadeException:
+            case IntegridadeDadosComprometidaException integridadeException:
                 _logger.LogCritical(integridadeException, "Integridade comprometida ao atualizar status pos-analise. Arquivo={Arquivo}", integridadeException.CaminhoArquivo);
                 break;
             default:

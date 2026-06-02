@@ -103,7 +103,7 @@ public sealed class ServicoFrota : IServicoFrota
             case FalhaDeComunicacaoOrbitalException falhaComunicacaoException:
                 _logger.LogError(falhaComunicacaoException, "Falha de comunicacao orbital ao solicitar intervencao. Satelite={SateliteId}", sateliteId);
                 return ResultadoOperacao<OrdemServico>.Falha(falhaComunicacaoException.Message, 503, "FALHA_COMUNICACAO_ORBITAL");
-            case IntegridadeDadosCompromDidaException integridadeException:
+            case IntegridadeDadosComprometidaException integridadeException:
                 _logger.LogCritical(integridadeException, "Integridade comprometida em arquivo de frota. Arquivo={Arquivo}", integridadeException.CaminhoArquivo);
                 return ResultadoOperacao<OrdemServico>.Falha(integridadeException.Message, 500, "INTEGRIDADE_DADOS_COMPROMETIDA");
             default:
@@ -118,7 +118,7 @@ public sealed class ServicoFrota : IServicoFrota
         {
             return ResultadoOperacao<IReadOnlyCollection<OrdemServico>>.Ok(_ordensServico.AsReadOnly());
         }
-        catch (IntegridadeDadosCompromDidaException exception)
+        catch (IntegridadeDadosComprometidaException exception)
         {
             _logger.LogCritical(exception, "Integridade comprometida ao listar ordens.");
             return ResultadoOperacao<IReadOnlyCollection<OrdemServico>>.Falha(exception.Message, 500, "INTEGRIDADE_DADOS_COMPROMETIDA");
@@ -137,7 +137,7 @@ public sealed class ServicoFrota : IServicoFrota
             var robos = _repositorioFrota.ListarTodos();
             return ResultadoOperacao<IReadOnlyCollection<RoboOrbital>>.Ok(robos);
         }
-        catch (IntegridadeDadosCompromDidaException exception)
+        catch (IntegridadeDadosComprometidaException exception)
         {
             _logger.LogCritical(exception, "Integridade comprometida ao listar frota de robos.");
             return ResultadoOperacao<IReadOnlyCollection<RoboOrbital>>.Falha(exception.Message, 500, "INTEGRIDADE_DADOS_COMPROMETIDA");
